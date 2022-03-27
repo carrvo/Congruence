@@ -18,3 +18,9 @@ class Congruence(tuple):
 
     def __str__(self):
         return f"{self.remainder} (mod {self.modulus})"
+
+    def value(self, q):
+        """
+        x = q * m + r
+        """
+        return q * self.modulus + self.remainder

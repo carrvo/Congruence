@@ -28,3 +28,9 @@ class CongruenceTests(unittest.TestCase):
         mod = Congruence(*raw)
         self.assertEqual((raw[0] - mod.remainder) / mod.modulus,
                          raw[0] // mod.modulus)
+
+    def test_recover_value(self):
+        q = 5
+        raw = tuple([3+7*q, 7])
+        mod = Congruence(*raw)
+        self.assertEqual(mod.value(q), raw[0])
