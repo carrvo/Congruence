@@ -14,3 +14,11 @@ class CongruenceTests(unittest.TestCase):
         raw = tuple([3+7*5, 7])
         mod = Congruence(*raw)
         self.assertEqual(3, mod.remainder)
+
+    def test_definition(self):
+        """
+        modulus divides value minus remainder
+        """
+        raw = tuple([24, 7])
+        mod = Congruence(*raw)
+        self.assertEqual(raw[0] // mod.modulus, (raw[0] - mod.remainder) / mod.modulus)
