@@ -35,10 +35,19 @@ class CongruenceTests(unittest.TestCase):
         mod = Congruence(*raw)
         self.assertEqual(mod.value(q), raw[0])
 
-    def test_reflexive(self):
+    def test_reflexivity(self):
         a = 24
         raw = tuple([a, 7])
         mod = Congruence(*raw)
         self.assertEqual(mod, Congruence(*raw))
         self.assertEqual(mod, a)
         self.assertTrue(mod.Reflexive)
+
+    def test_symmetry(self):
+        a = 24
+        b = 31
+        raw = tuple([a, 7])
+        mod = Congruence(*raw)
+        self.assertEqual(mod, b)
+        self.assertEqual(b, mod)
+        self.assertTrue(mod.Symmetrical)

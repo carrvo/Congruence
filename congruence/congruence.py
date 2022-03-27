@@ -30,3 +30,7 @@ class Congruence(object):
     @property
     def Reflexive(self):
         return True
+
+    @property
+    def Symmetrical(self):
+        return True
