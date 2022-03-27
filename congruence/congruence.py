@@ -20,3 +20,13 @@ class Congruence(object):
         x = q * m + r
         """
         return q * self.modulus + self.remainder
+
+    def __eq__(self, other):
+        if not isinstance(other, Congruence):
+            other = Congruence(other, self.modulus)
+        return (self.modulus == other.modulus and
+                self.remainder == other.remainder)
+
+    @property
+    def Reflexive(self):
+        return True

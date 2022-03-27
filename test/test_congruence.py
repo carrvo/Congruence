@@ -34,3 +34,11 @@ class CongruenceTests(unittest.TestCase):
         raw = tuple([3+7*q, 7])
         mod = Congruence(*raw)
         self.assertEqual(mod.value(q), raw[0])
+
+    def test_reflexive(self):
+        a = 24
+        raw = tuple([a, 7])
+        mod = Congruence(*raw)
+        self.assertEqual(mod, Congruence(*raw))
+        self.assertEqual(mod, a)
+        self.assertTrue(mod.Reflexive)
