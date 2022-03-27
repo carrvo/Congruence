@@ -13,8 +13,8 @@ class Congruence(tuple):
         return self
 
     def __init__(self, value, modulus):
-        self.value = value
+        self.remainder = value % modulus
         self.modulus = modulus
 
     def __str__(self):
-        return f"{self.value} (mod {self.modulus})"
+        return f"{self.remainder} (mod {self.modulus})"
