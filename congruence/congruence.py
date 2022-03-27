@@ -13,7 +13,7 @@ class Congruence(object):
         return repr(tuple([self.remainder, self.modulus]))
 
     def __str__(self):
-        return f"{self.remainder} (mod {self.modulus})"
+        return f'{self.remainder} (mod {self.modulus})'
 
     def value(self, q):
         """
