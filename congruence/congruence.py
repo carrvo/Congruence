@@ -34,3 +34,7 @@ class Congruence(object):
     @property
     def Symmetrical(self):
         return True
+
+    @property
+    def Transitive(self):
+        return True

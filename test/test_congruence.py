@@ -51,3 +51,12 @@ class CongruenceTests(unittest.TestCase):
         self.assertEqual(mod, b)
         self.assertEqual(b, mod)
         self.assertTrue(mod.Symmetrical)
+
+    def test_transitivity(self):
+        a = Congruence(24, 7)
+        b = Congruence(31, 7)
+        c = Congruence(17, 7)
+        self.assertEqual(a, b)
+        self.assertEqual(b, c)
+        self.assertEqual(a, c)
+        self.assertTrue(a.Transitive)
