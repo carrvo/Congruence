@@ -11,6 +11,9 @@ class CongruenceTests(unittest.TestCase):
         self.assertEqual(repr(mod), repr(raw))
 
     def test_keeps_remainder(self):
+        """
+        0 <= remainder < modulus
+        """
         raw = tuple([3+7*5, 7])
         mod = Congruence(*raw)
         self.assertEqual(mod.remainder, 3)
