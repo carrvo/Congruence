@@ -45,15 +45,18 @@ class CongruenceClass(object):
                              f"int for which to compare (mod {self.modulus})")
         return other % self.modulus == self.remainder
 
-    def __eq__(self, other):
+    def __sanitize(self, other):
         if not isinstance(other, CongruenceClass):
-            other = CongruenceClass(other, self.modulus)
+            return CongruenceClass(other, self.modulus)
+        return other
+
+    def __eq__(self, other):
+        other = self.__sanitize(other)
         return (self.modulus == other.modulus and
                 self.remainder == other.remainder)
 
     def __add__(self, other):
-        if not isinstance(other, CongruenceClass):
-            other = CongruenceClass(other, self.modulus)
+        other = self.__sanitize(other)
         if other.modulus == self.modulus:
             return CongruenceClass(self.remainder + other.remainder, self.modulus)
         else:
@@ -63,8 +66,7 @@ class CongruenceClass(object):
     __radd__ = __add__
 
     def __sub__(self, other):
-        if not isinstance(other, CongruenceClass):
-            other = CongruenceClass(other, self.modulus)
+        other = self.__sanitize(other)
         if other.modulus == self.modulus:
             return CongruenceClass(self.remainder - other.remainder, self.modulus)
         else:
@@ -74,8 +76,7 @@ class CongruenceClass(object):
     __rsub__ = __sub__
 
     def __mul__(self, other):
-        if not isinstance(other, CongruenceClass):
-            other = CongruenceClass(other, self.modulus)
+        other = self.__sanitize(other)
         if other.modulus == self.modulus:
             return CongruenceClass(self.remainder * other.remainder, self.modulus)
         else:
