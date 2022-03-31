@@ -43,7 +43,7 @@ class CongruenceClass(object):
         if isinstance(other, congruence.Congruence):
             return other == congruence.Congruence(self.remainder, self.modulus)
         if not isinstance(other, int):
-            raise ValueError(f"{other} from {type(other)} is not of"
+            raise ValueError(f"{other} from {type(other)} is not of "
                              f"int for which to compare (mod {self.modulus})")
         return other % self.modulus == self.remainder
 
@@ -51,7 +51,7 @@ class CongruenceClass(object):
         if not isinstance(other, CongruenceClass):
             return CongruenceClass(other, self.modulus)
         if other.modulus != self.modulus:
-            raise ValueError(f"modulus {other.modulus} from {type(other)}" +
+            raise ValueError(f"modulus {other.modulus} from {type(other)} "
                              f"differs against {self.modulus} from {type(self)}")
         return other
 

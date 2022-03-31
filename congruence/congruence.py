@@ -26,7 +26,7 @@ class Congruence(object):
         if not isinstance(other, Congruence):
             return Congruence(other, self.modulus)
         if other.modulus != self.modulus:
-            raise ValueError(f"modulus {other.modulus} from {type(other)}" +
+            raise ValueError(f"modulus {other.modulus} from {type(other)} "
                              f"differs against {self.modulus} from {type(self)}")
         return other
 
