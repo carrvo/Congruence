@@ -20,11 +20,11 @@ class CongruenceClassTests(unittest.TestCase):
             self.assertIn(i, mod)
 
     def test_set_of_classes(self):
-        mod = 5
+        mod = 7
         congruence_set = CongruenceClass.Set(mod)
         self.assertEqual(len(congruence_set), mod)
         self.assertEqual(set(c.remainder for c in congruence_set),
-                         set(range(0, 5)))
+                         set(range(0, mod)))
 
     def test_addition(self):
         a = 24
