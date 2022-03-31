@@ -27,6 +27,39 @@ class Congruence(object):
         return (self.modulus == other.modulus and
                 self.remainder == other.remainder)
 
+    def __add__(self, other):
+        if not isinstance(other, Congruence):
+            other = Congruence(other, self.modulus)
+        if other.modulus == self.modulus:
+            return Congruence(self.remainder + other.remainder, self.modulus)
+        else:
+            raise ValueError(f"modulus {other.modulus} from {type(other)}" +
+                             f"differs against {self.modulus} from {type(self)}")
+
+    __radd__ = __add__
+
+    def __sub__(self, other):
+        if not isinstance(other, Congruence):
+            other = Congruence(other, self.modulus)
+        if other.modulus == self.modulus:
+            return Congruence(self.remainder - other.remainder, self.modulus)
+        else:
+            raise ValueError(f"modulus {other.modulus} from {type(other)}" +
+                             f"differs against {self.modulus} from {type(self)}")
+
+    __rsub__ = __sub__
+
+    def __mul__(self, other):
+        if not isinstance(other, Congruence):
+            other = Congruence(other, self.modulus)
+        if other.modulus == self.modulus:
+            return Congruence(self.remainder * other.remainder, self.modulus)
+        else:
+            raise ValueError(f"modulus {other.modulus} from {type(other)}" +
+                             f"differs against {self.modulus} from {type(self)}")
+
+    __rmul__ = __mul__
+
     @property
     def Reflexive(self):
         return True

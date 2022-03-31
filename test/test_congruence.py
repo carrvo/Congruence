@@ -60,3 +60,30 @@ class CongruenceTests(unittest.TestCase):
         self.assertEqual(b, c)
         self.assertEqual(a, c)
         self.assertTrue(a.Transitive)
+
+    def test_addition(self):
+        a = 24
+        b = Congruence(a, 7)
+        c = 31
+        d = Congruence(c, 7)
+        self.assertEqual(Congruence(a+c, 7), b+d)
+        self.assertEqual(Congruence(a+c, 7), b+c)
+        self.assertEqual(Congruence(a+c, 7), a+d)
+
+    def test_subtraction(self):
+        a = 24
+        b = Congruence(a, 7)
+        c = 31
+        d = Congruence(c, 7)
+        self.assertEqual(Congruence(a-c, 7), b-d)
+        self.assertEqual(Congruence(a-c, 7), b-c)
+        self.assertEqual(Congruence(a-c, 7), a-d)
+
+    def test_multiplication(self):
+        a = 24
+        b = Congruence(a, 7)
+        c = 31
+        d = Congruence(c, 7)
+        self.assertEqual(Congruence(a*c, 7), b*d)
+        self.assertEqual(Congruence(a*c, 7), b*c)
+        self.assertEqual(Congruence(a*c, 7), a*d)
