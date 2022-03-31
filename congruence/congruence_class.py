@@ -17,6 +17,6 @@ class CongruenceClass(object):
     def __str__(self):
         return f'{self.remainder}\u0304'
 
-    @staticmethod
+    @classmethod
     def Set(cls, modulus):
-        return set(CongruenceClass(r, modulus) for r in range(0, modulus))
+        return set(cls(r, modulus) for r in range(0, modulus))
