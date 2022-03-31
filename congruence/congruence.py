@@ -25,6 +25,9 @@ class Congruence(object):
     def __sanitize(self, other):
         if not isinstance(other, Congruence):
             return Congruence(other, self.modulus)
+        if other.modulus != self.modulus:
+            raise ValueError(f"modulus {other.modulus} from {type(other)}" +
+                             f"differs against {self.modulus} from {type(self)}")
         return other
 
     def __eq__(self, other):
@@ -34,31 +37,19 @@ class Congruence(object):
 
     def __add__(self, other):
         other = self.__sanitize(other)
-        if other.modulus == self.modulus:
-            return Congruence(self.remainder + other.remainder, self.modulus)
-        else:
-            raise ValueError(f"modulus {other.modulus} from {type(other)}" +
-                             f"differs against {self.modulus} from {type(self)}")
+        return Congruence(self.remainder + other.remainder, self.modulus)
 
     __radd__ = __add__
 
     def __sub__(self, other):
         other = self.__sanitize(other)
-        if other.modulus == self.modulus:
-            return Congruence(self.remainder - other.remainder, self.modulus)
-        else:
-            raise ValueError(f"modulus {other.modulus} from {type(other)}" +
-                             f"differs against {self.modulus} from {type(self)}")
+        return Congruence(self.remainder - other.remainder, self.modulus)
 
     __rsub__ = __sub__
 
     def __mul__(self, other):
         other = self.__sanitize(other)
-        if other.modulus == self.modulus:
-            return Congruence(self.remainder * other.remainder, self.modulus)
-        else:
-            raise ValueError(f"modulus {other.modulus} from {type(other)}" +
-                             f"differs against {self.modulus} from {type(self)}")
+        return Congruence(self.remainder * other.remainder, self.modulus)
 
     __rmul__ = __mul__
 
