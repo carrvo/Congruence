@@ -61,6 +61,16 @@ class CongruenceTests(unittest.TestCase):
         self.assertEqual(a, c)
         self.assertTrue(a.Transitive)
 
+    def test_negatives(self):
+        a = 24
+        mod = 7
+        positive_positive = Congruence(a, mod)
+        positive_negative = Congruence(a, -mod)
+        negative_positive = Congruence(-a, mod)
+        negative_negative = Congruence(-a, -mod)
+        self.assertEqual(positive_positive, positive_negative)
+        self.assertEqual(negative_positive, negative_negative)
+
     def test_addition(self):
         a = 24
         b = Congruence(a, 7)

@@ -6,6 +6,7 @@ class Congruence(object):
     """
 
     def __init__(self, value, modulus):
+        modulus = abs(modulus)
         self.remainder = value % modulus
         self.modulus = modulus
 

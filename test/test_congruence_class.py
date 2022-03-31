@@ -26,6 +26,16 @@ class CongruenceClassTests(unittest.TestCase):
         self.assertEqual(set(c.remainder for c in congruence_set),
                          set(range(0, mod)))
 
+    def test_negatives(self):
+        a = 24
+        mod = 7
+        positive_positive = CongruenceClass(a, mod)
+        positive_negative = CongruenceClass(a, -mod)
+        negative_positive = CongruenceClass(-a, mod)
+        negative_negative = CongruenceClass(-a, -mod)
+        self.assertEqual(positive_positive, positive_negative)
+        self.assertEqual(negative_positive, negative_negative)
+
     def test_addition(self):
         a = 24
         b = CongruenceClass(a, 7)
