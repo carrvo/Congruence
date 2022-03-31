@@ -1,6 +1,7 @@
 import unittest
 import sys
 
+import congruence
 from congruence import CongruenceClass
 
 class CongruenceClassTests(unittest.TestCase):
@@ -18,6 +19,7 @@ class CongruenceClassTests(unittest.TestCase):
         self.assertEqual(len(mod), sys.maxsize)
         for i in range(-100*7+3, +100*7+3, 7):
             self.assertIn(i, mod)
+        self.assertIn(congruence.Congruence(*raw), mod)
 
     def test_set_of_classes(self):
         mod = 7

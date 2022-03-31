@@ -3,7 +3,7 @@
 
 import sys
 
-from congruence.congruence import Congruence
+import congruence
 
 class CongruenceClass(object):
     """
@@ -40,6 +40,8 @@ class CongruenceClass(object):
         return sys.maxsize
 
     def __contains__(self, other):
+        if isinstance(other, congruence.Congruence):
+            return other == congruence.Congruence(self.remainder, self.modulus)
         if not isinstance(other, int):
             raise ValueError(f"{other} from {type(other)} is not of"
                              f"int for which to compare (mod {self.modulus})")
