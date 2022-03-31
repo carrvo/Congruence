@@ -1,4 +1,5 @@
 import unittest
+import sys
 
 from congruence import CongruenceClass
 
@@ -9,6 +10,14 @@ class CongruenceClassTests(unittest.TestCase):
         mod = CongruenceClass(*raw)
         self.assertEqual(str(mod), '3\u0304')
         self.assertEqual(repr(mod), repr(raw))
+
+    def test_definition(self):
+        raw = tuple([3, 7])
+        mod = CongruenceClass(*raw)
+        #self.assertEqual(len(mod), math.inf)
+        self.assertEqual(len(mod), sys.maxsize)
+        for i in range(-100*7+3, +100*7+3, 7):
+            self.assertIn(i, mod)
 
     def test_set_of_classes(self):
         mod = 5

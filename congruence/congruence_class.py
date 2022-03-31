@@ -1,6 +1,8 @@
 """
 """
 
+import sys
+
 from congruence.congruence import Congruence
 
 class CongruenceClass(object):
@@ -26,6 +28,21 @@ class CongruenceClass(object):
     @classmethod
     def Set(cls, modulus):
         return set(cls(r, modulus) for r in range(0, modulus))
+
+    def __len__(self):
+        """
+        Theoretically should be math.inf, but implementation
+        restricts to sys.maxsize
+
+        :ref: https://docs.python.org/3/reference/datamodel.html#object.__len__
+        """
+        return sys.maxsize
+
+    def __contains__(self, other):
+        if not isinstance(other, int):
+            raise ValueError(f"{other} from {type(other)} is not of"
+                             f"int for which to compare (mod {self.modulus})")
+        return other % self.modulus == self.remainder
 
     def __eq__(self, other):
         if not isinstance(other, CongruenceClass):
