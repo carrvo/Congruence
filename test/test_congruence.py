@@ -118,3 +118,23 @@ class CongruenceTests(unittest.TestCase):
         mod = Congruence(*raw)
         f = lambda x: x**5 - x**3 + 17
         self.assertEqual(Congruence(f(raw[0]), 7), f(mod))
+
+    def test_constant_multiple(self):
+        raw = tuple([3, 7])
+        mod = Congruence(*raw)
+        c = 5
+        self.assertEqual(Congruence(c*raw[0], raw[1]), c*mod)
+
+    @unittest.skip("No practical implementation (as far as proper checks) known.")
+    def test_cancellation_law(self):
+        raw = tuple([3, 7])
+        c = 5
+        mod = Congruence(c*raw[0], raw[1])
+        self.assertEqual(mod//c, Congruence(*raw))
+
+    @unittest.skip("No relatively prime function as of yet.")
+    def test_relatively_prime(self):
+        a = 24
+        mod = Congruence(a, 7)
+        self.assertTrue(is_relatively_prime(mod.remainder, mod.modulus))
+        self.assertTrue(is_relatively_prime(a, mod.modulus))
