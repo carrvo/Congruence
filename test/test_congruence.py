@@ -97,3 +97,12 @@ class CongruenceTests(unittest.TestCase):
         self.assertEqual(Congruence(a*c, 7), b*d)
         self.assertEqual(Congruence(a*c, 7), b*c)
         self.assertEqual(Congruence(a*c, 7), a*d)
+
+    def test_linear(self):
+        a = 24
+        b = Congruence(a, 7)
+        c = 31
+        d = Congruence(c, 7)
+        x = 5
+        y = 10
+        self.assertEqual(Congruence(a*x + c*y, 7), b*x + d*y)
