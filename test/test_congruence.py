@@ -1,6 +1,6 @@
 import unittest
 
-from congruence import Congruence
+from congruence import Congruence,is_relatively_prime
 
 class CongruenceTests(unittest.TestCase):
 
@@ -132,7 +132,6 @@ class CongruenceTests(unittest.TestCase):
         mod = Congruence(c*raw[0], raw[1])
         self.assertEqual(mod//c, Congruence(*raw))
 
-    @unittest.skip("No relatively prime function as of yet.")
     def test_relatively_prime(self):
         a = 24
         mod = Congruence(a, 7)
