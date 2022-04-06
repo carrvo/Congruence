@@ -112,3 +112,9 @@ class CongruenceTests(unittest.TestCase):
         mod = Congruence(*raw)
         p = 5
         self.assertEqual(Congruence(raw[0]**p, raw[1]), mod**p)
+
+    def test_polynomial(self):
+        raw = tuple([3, 7])
+        mod = Congruence(*raw)
+        f = lambda x: x**5 - x**3 + 17
+        self.assertEqual(Congruence(f(raw[0]), 7), f(mod))
