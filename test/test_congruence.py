@@ -106,3 +106,9 @@ class CongruenceTests(unittest.TestCase):
         x = 5
         y = 10
         self.assertEqual(Congruence(a*x + c*y, 7), b*x + d*y)
+
+    def test_exponential(self):
+        raw = tuple([3, 7])
+        mod = Congruence(*raw)
+        p = 5
+        self.assertEqual(Congruence(raw[0]**p, raw[1]), mod**p)

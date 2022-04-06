@@ -53,6 +53,9 @@ class Congruence(object):
 
     __rmul__ = __mul__
 
+    def __pow__(self, other):
+        return Congruence(self.remainder ** other, self.modulus)
+
     @property
     def Reflexive(self):
         return True
