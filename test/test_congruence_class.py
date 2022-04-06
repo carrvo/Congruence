@@ -2,7 +2,7 @@ import unittest
 import sys
 
 import congruence
-from congruence import CongruenceClass
+from congruence import CongruenceClass,EulerTotent
 
 class CongruenceClassTests(unittest.TestCase):
 
@@ -64,3 +64,6 @@ class CongruenceClassTests(unittest.TestCase):
         self.assertEqual(CongruenceClass(a*c, 7), b*d)
         self.assertEqual(CongruenceClass(a*c, 7), b*c)
         self.assertEqual(CongruenceClass(a*c, 7), a*d)
+
+    def test_EulerTotent(self):
+        self.assertEqual(EulerTotent(12), 4)

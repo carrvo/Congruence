@@ -77,3 +77,16 @@ class CongruenceClass(object):
         return CongruenceClass(self.remainder * other.remainder, self.modulus)
 
     __rmul__ = __mul__
+
+def Zm(m):
+    return CongruenceClass.Set(m)
+
+def Zm_star(m):
+    return set(
+        r
+        for r in Zm(m)
+        if congruence.is_relatively_prime(r.remainder, m)
+    )
+
+def EulerTotent(m):
+    return len(Zm_star(m))
