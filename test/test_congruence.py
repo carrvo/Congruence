@@ -187,3 +187,12 @@ class CongruenceTests(unittest.TestCase):
         self.assertTrue(Congruence(3, 4).is_primitive_root)
         self.assertTrue(Congruence(3, 7).is_primitive_root)
         self.assertTrue(Congruence(3, 14).is_primitive_root)
+
+    @unittest.skip("needs primes")
+    def test_admits_primitive_root(self):
+        self.assertTrue(Congruence.AdmitsPrimitiveRoot(1))
+        self.assertTrue(Congruence.AdmitsPrimitiveRoot(2))
+        self.assertTrue(Congruence.AdmitsPrimitiveRoot(4))
+        prime = 7
+        self.assertTrue(Congruence.AdmitsPrimitiveRoot(prime**6))
+        self.assertTrue(Congruence.AdmitsPrimitiveRoot(2 * prime**6))
