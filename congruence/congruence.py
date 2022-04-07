@@ -92,6 +92,12 @@ class Congruence(object):
         return Congruence(one.LinearCongruence(self.remainder), self.modulus)
 
     @property
+    def order(self):
+        for i in range(1, congruence.EulerTotent(self.modulus) + 1):
+            if Congruence(self.remainder**i, self.modulus).remainder == 1:
+                return i
+
+    @property
     def Reflexive(self):
         return True
 

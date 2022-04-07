@@ -174,3 +174,10 @@ class CongruenceTests(unittest.TestCase):
         a2 = Congruence(4, 11)
         a3 = Congruence(5, 13)
         self.assertEqual(ChineseRemainderTheorem(a1, a2, a3), Congruence(499, 1001))
+
+    def test_order(self):
+        raw = tuple([25, 7])
+        mod = Congruence(*raw)
+        order = mod.order
+        self.assertLess(order, congruence.EulerTotent(mod.modulus))
+        self.assertEqual(order, 3)
