@@ -74,3 +74,10 @@ class CongruenceClassTests(unittest.TestCase):
         self.assertIn(mod, Zm_star(mod.modulus))
         self.assertTrue(mod.is_relatively_prime_to_modulus)
         self.assertEqual(mod*mod.multiplicative_inverse, 1)
+
+    def test_two_relatively_prime(self):
+        a = CongruenceClass(24, 7)
+        self.assertTrue(a.is_relatively_prime_to_modulus)
+        b = CongruenceClass(31, 7)
+        self.assertTrue(b.is_relatively_prime_to_modulus)
+        self.assertTrue((a*b).is_relatively_prime_to_modulus)
