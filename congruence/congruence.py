@@ -3,6 +3,7 @@
 
 import sys
 import math
+import functools
 
 import congruence
 
@@ -101,3 +102,9 @@ class Congruence(object):
     @property
     def Transitive(self):
         return True
+
+def ChineseRemainderTheorem(*congruences):
+    M = functools.reduce(lambda x, y: x*y, [congruence.modulus for congruence in congruences]) // functools.reduce(math.gcd, [congruence.modulus for congruence in congruences]) # LCM based on https://stackoverflow.com/a/50830937
+    congruence_triples = [(congruence, M // congruence.modulus) for congruence in congruences]
+    x = sum(triple[0].remainder * triple[1] * Congruence(triple[1], triple[0].modulus).multiplicative_inverse.remainder for triple in congruence_triples)
+    return Congruence(x, M)

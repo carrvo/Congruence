@@ -2,7 +2,7 @@ import unittest
 import math
 
 import congruence
-from congruence import Congruence,is_relatively_prime
+from congruence import Congruence,is_relatively_prime,ChineseRemainderTheorem
 
 class CongruenceTests(unittest.TestCase):
 
@@ -168,3 +168,9 @@ class CongruenceTests(unittest.TestCase):
         linear = b.LinearCongruence(a)
         self.assertEqual(len(linear), count)
         self.assertEqual(linear, (10, 25, 40))
+
+    def test_Chinese_Remainder_Theorem(self):
+        a1 = Congruence(2, 7)
+        a2 = Congruence(4, 11)
+        a3 = Congruence(5, 13)
+        self.assertEqual(ChineseRemainderTheorem(a1, a2, a3), Congruence(499, 1001))
