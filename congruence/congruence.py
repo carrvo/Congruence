@@ -3,6 +3,8 @@
 
 import sys
 
+import congruence
+
 class Congruence(object):
     """
     """
@@ -57,6 +59,10 @@ class Congruence(object):
 
     def __pow__(self, other):
         return Congruence(self.remainder ** other, self.modulus)
+
+    @property
+    def is_relatively_prime_to_modulus(self):
+        return congruence.is_relatively_prime(self.remainder, self.modulus)
 
     @property
     def Reflexive(self):

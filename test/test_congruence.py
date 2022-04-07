@@ -1,5 +1,6 @@
 import unittest
 
+import congruence
 from congruence import Congruence,is_relatively_prime
 
 class CongruenceTests(unittest.TestCase):
@@ -135,5 +136,12 @@ class CongruenceTests(unittest.TestCase):
     def test_relatively_prime(self):
         a = 24
         mod = Congruence(a, 7)
-        self.assertTrue(is_relatively_prime(mod.remainder, mod.modulus))
+        self.assertTrue(mod.is_relatively_prime_to_modulus)
         self.assertTrue(is_relatively_prime(a, mod.modulus))
+
+    def test_Eulers_Theorem(self):
+        raw = tuple([3, 7])
+        mod = Congruence(*raw)
+        self.assertTrue(mod.is_relatively_prime_to_modulus)
+        self.assertEqual(mod**congruence.EulerTotent(mod.modulus),
+                         Congruence(1, mod.modulus))
