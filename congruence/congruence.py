@@ -98,6 +98,10 @@ class Congruence(object):
                 return i
 
     @property
+    def is_primitive_root(self):
+        return self.order == congruence.EulerTotent(self.modulus)
+
+    @property
     def Reflexive(self):
         return True
 

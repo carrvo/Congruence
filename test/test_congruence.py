@@ -181,3 +181,9 @@ class CongruenceTests(unittest.TestCase):
         order = mod.order
         self.assertLess(order, congruence.EulerTotent(mod.modulus))
         self.assertEqual(order, 3)
+
+    def test_primitive_root(self):
+        self.assertTrue(Congruence(2, 3).is_primitive_root)
+        self.assertTrue(Congruence(3, 4).is_primitive_root)
+        self.assertTrue(Congruence(3, 7).is_primitive_root)
+        self.assertTrue(Congruence(3, 14).is_primitive_root)
