@@ -103,7 +103,7 @@ def Zm_star(m):
     return set(
         r
         for r in Zm(m)
-        if congruence.is_relatively_prime(r.remainder, m)
+        if r.is_relatively_prime_to_modulus
     )
 
 def EulerTotent(m):
