@@ -2,7 +2,7 @@ import unittest
 import sys
 
 import congruence
-from congruence import CongruenceClass,EulerTotent
+from congruence import CongruenceClass,Zm_star,EulerTotent
 
 class CongruenceClassTests(unittest.TestCase):
 
@@ -67,3 +67,10 @@ class CongruenceClassTests(unittest.TestCase):
 
     def test_EulerTotent(self):
         self.assertEqual(EulerTotent(12), 4)
+
+    def test_multiplicative_inverse(self):
+        raw = tuple([3, 7])
+        mod = CongruenceClass(*raw)
+        self.assertIn(mod, Zm_star(mod.modulus))
+        self.assertTrue(mod.is_relatively_prime_to_modulus)
+        self.assertEqual(mod*mod.multiplicative_inverse, 1)

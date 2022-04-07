@@ -78,6 +78,24 @@ class CongruenceClass(object):
 
     __rmul__ = __mul__
 
+    @property
+    def is_relatively_prime_to_modulus(self):
+        return congruence.is_relatively_prime(self.remainder, self.modulus)
+
+    @property
+    def multiplicative_inverse(self):
+        if not self.is_relatively_prime_to_modulus:
+            raise ValueError(f"{str(self)} must be relatively prime"
+                             f" to {self.modulus}")
+        # brute force but limited to the range it must exist within
+        for multiple in range(1, self.remainder+1):
+            condition = multiple * self.modulus + 1
+            value, mod = divmod(condition, self.remainder)
+            if mod == 0:
+                return CongruenceClass(value, self.modulus)
+        else:
+            raise ValueError(f"No multiplicative inverse for {str(self)}")
+
 def Zm(m):
     return CongruenceClass.Set(m)
 
