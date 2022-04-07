@@ -151,3 +151,9 @@ class CongruenceTests(unittest.TestCase):
         b = Congruence(31, 7)
         linear = b.LinearCongruence(a)
         self.assertEqual(Congruence(a*linear, b.modulus), b)
+
+    def test_multiplicative_inverse(self):
+        raw = tuple([3, 7])
+        mod = Congruence(*raw)
+        self.assertTrue(mod.is_relatively_prime_to_modulus)
+        self.assertEqual(mod*mod.multiplicative_inverse, 1)
