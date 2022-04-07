@@ -64,6 +64,12 @@ class Congruence(object):
     def is_relatively_prime_to_modulus(self):
         return congruence.is_relatively_prime(self.remainder, self.modulus)
 
+    def LinearCongruence(self, value):
+        """
+        value * return == str(self)
+        """
+        return self.remainder * value**(congruence.EulerTotent(self.modulus) - 1)
+
     @property
     def Reflexive(self):
         return True

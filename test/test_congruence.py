@@ -145,3 +145,9 @@ class CongruenceTests(unittest.TestCase):
         self.assertTrue(mod.is_relatively_prime_to_modulus)
         self.assertEqual(mod**congruence.EulerTotent(mod.modulus),
                          Congruence(1, mod.modulus))
+
+    def test_Linear_Congruence(self):
+        a = 24
+        b = Congruence(31, 7)
+        linear = b.LinearCongruence(a)
+        self.assertEqual(Congruence(a*linear, b.modulus), b)
