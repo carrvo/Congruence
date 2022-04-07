@@ -150,6 +150,7 @@ class CongruenceTests(unittest.TestCase):
     def test_Linear_Congruence(self):
         a = 24
         b = Congruence(31, 7)
+        self.assertTrue(congruence.is_relatively_prime(a, b.modulus))
         linear = b.LinearCongruence(a)
         self.assertEqual(Congruence(a*linear, b.modulus), b)
 
@@ -158,3 +159,12 @@ class CongruenceTests(unittest.TestCase):
         mod = Congruence(*raw)
         self.assertTrue(mod.is_relatively_prime_to_modulus)
         self.assertEqual(mod*mod.multiplicative_inverse, 1)
+
+    def test_Linear_Congruence_when_not_relatively_prime(self):
+        a = 33
+        b = Congruence(15, 45)
+        self.assertFalse(b.is_relatively_prime_to_modulus)
+        count = math.gcd(a, b.modulus)
+        linear = b.LinearCongruence(a)
+        self.assertEqual(len(linear), count)
+        self.assertEqual(linear, (10, 25, 40))

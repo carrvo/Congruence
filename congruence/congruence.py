@@ -2,6 +2,7 @@
 """
 
 import sys
+import math
 
 import congruence
 
@@ -68,10 +69,21 @@ class Congruence(object):
         """
         value * return == str(self)
         """
-        if not self.is_relatively_prime_to_modulus:
-            raise ValueError(f"{self.remainder} must be relatively prime"
-                             f" to {self.modulus} for {str(self)}")
-        return self.remainder * value**(congruence.EulerTotent(self.modulus) - 1)
+        if congruence.is_relatively_prime(value, self.modulus):
+            return self.remainder * value**(congruence.EulerTotent(self.modulus) - 1)
+        else:
+            count = math.gcd(value, self.modulus)
+            div, mod = divmod(self.remainder, count)
+            if mod != 0:
+                raise ValueError(f"{value} and {str(self)} do not all divide "
+                                 f"{count} ({self.remainder} / {count} = "
+                                 f"{self.remainder / count})")
+            mod_ratio = self.modulus // count
+            x0 = Congruence(div, mod_ratio).LinearCongruence(value // count)
+            return tuple(
+                Congruence(x0 + mod_ratio*t, self.modulus).remainder
+                for t in range(0, count)
+            )
 
     @property
     def multiplicative_inverse(self):
