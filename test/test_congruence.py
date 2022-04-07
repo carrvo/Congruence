@@ -1,4 +1,5 @@
 import unittest
+import math
 
 import congruence
 from congruence import Congruence,is_relatively_prime

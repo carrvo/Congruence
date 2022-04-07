@@ -68,13 +68,13 @@ class Congruence(object):
         """
         value * return == str(self)
         """
+        if not self.is_relatively_prime_to_modulus:
+            raise ValueError(f"{self.remainder} must be relatively prime"
+                             f" to {self.modulus} for {str(self)}")
         return self.remainder * value**(congruence.EulerTotent(self.modulus) - 1)
 
     @property
     def multiplicative_inverse(self):
-        if not self.is_relatively_prime_to_modulus:
-            raise ValueError(f"{str(self)} must be relatively prime"
-                             f" to {self.modulus}")
         one = Congruence(1, self.modulus)
         return Congruence(one.LinearCongruence(self.remainder), self.modulus)
 
