@@ -48,8 +48,8 @@ class CongruenceClass(object):
         return other % self.modulus == self.remainder
 
     def __sanitize(self, other):
-        if not isinstance(other, CongruenceClass):
-            return CongruenceClass(other, self.modulus)
+        if not isinstance(other, self.__class__):
+            return self.__class__(other, self.modulus)
         if other.modulus != self.modulus:
             raise ValueError(f"modulus {other.modulus} from {type(other)} "
                              f"differs against {self.modulus} from {type(self)}")
@@ -62,19 +62,19 @@ class CongruenceClass(object):
 
     def __add__(self, other):
         other = self.__sanitize(other)
-        return CongruenceClass(self.remainder + other.remainder, self.modulus)
+        return self.__class__(self.remainder + other.remainder, self.modulus)
 
     __radd__ = __add__
 
     def __sub__(self, other):
         other = self.__sanitize(other)
-        return CongruenceClass(self.remainder - other.remainder, self.modulus)
+        return self.__class__(self.remainder - other.remainder, self.modulus)
 
     __rsub__ = __sub__
 
     def __mul__(self, other):
         other = self.__sanitize(other)
-        return CongruenceClass(self.remainder * other.remainder, self.modulus)
+        return self.__class__(self.remainder * other.remainder, self.modulus)
 
     __rmul__ = __mul__
 
@@ -92,7 +92,7 @@ class CongruenceClass(object):
             condition = multiple * self.modulus + 1
             value, mod = divmod(condition, self.remainder)
             if mod == 0:
-                return CongruenceClass(value, self.modulus)
+                return self.__class__(value, self.modulus)
         else:
             raise ValueError(f"No multiplicative inverse for {str(self)}")
 

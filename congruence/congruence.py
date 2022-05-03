@@ -29,8 +29,8 @@ class Congruence(object):
         return q * self.modulus + self.remainder
 
     def __sanitize(self, other):
-        if not isinstance(other, Congruence):
-            return Congruence(other, self.modulus)
+        if not isinstance(other, self.__class__):
+            return self.__class__(other, self.modulus)
         if other.modulus != self.modulus:
             raise ValueError(f"modulus {other.modulus} from {type(other)} "
                              f"differs against {self.modulus} from {type(self)}")
@@ -43,24 +43,24 @@ class Congruence(object):
 
     def __add__(self, other):
         other = self.__sanitize(other)
-        return Congruence(self.remainder + other.remainder, self.modulus)
+        return self.__class__(self.remainder + other.remainder, self.modulus)
 
     __radd__ = __add__
 
     def __sub__(self, other):
         other = self.__sanitize(other)
-        return Congruence(self.remainder - other.remainder, self.modulus)
+        return self.__class__(self.remainder - other.remainder, self.modulus)
 
     __rsub__ = __sub__
 
     def __mul__(self, other):
         other = self.__sanitize(other)
-        return Congruence(self.remainder * other.remainder, self.modulus)
+        return self.__class__(self.remainder * other.remainder, self.modulus)
 
     __rmul__ = __mul__
 
     def __pow__(self, other):
-        return Congruence(self.remainder ** other, self.modulus)
+        return self.__class__(self.remainder ** other, self.modulus)
 
     @property
     def is_relatively_prime_to_modulus(self):
@@ -80,21 +80,21 @@ class Congruence(object):
                                  f"{count} ({self.remainder} / {count} = "
                                  f"{self.remainder / count})")
             mod_ratio = self.modulus // count
-            x0 = Congruence(div, mod_ratio).LinearCongruence(value // count)
+            x0 = self.__class__(div, mod_ratio).LinearCongruence(value // count)
             return tuple(
-                Congruence(x0 + mod_ratio*t, self.modulus).remainder
+                self.__class__(x0 + mod_ratio*t, self.modulus).remainder
                 for t in range(0, count)
             )
 
     @property
     def multiplicative_inverse(self):
-        one = Congruence(1, self.modulus)
-        return Congruence(one.LinearCongruence(self.remainder), self.modulus)
+        one = self.__class__(1, self.modulus)
+        return self.__class__(one.LinearCongruence(self.remainder), self.modulus)
 
     @property
     def order(self):
         for i in range(1, congruence.EulerTotent(self.modulus) + 1):
-            if Congruence(self.remainder**i, self.modulus).remainder == 1:
+            if self.__class__(self.remainder**i, self.modulus).remainder == 1:
                 return i
 
     @property
