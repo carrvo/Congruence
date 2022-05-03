@@ -42,15 +42,17 @@ class CongruenceClass(congruence.Congruence):
                              f"int for which to compare (mod {self.modulus})")
         return other % self.modulus == self.remainder
 
-def Zm(m):
-    return CongruenceClass.Set(m)
+def Zm(m, klass=CongruenceClass):
+    if not issubclass(klass, CongruenceClass):
+        raise TypeError(f"Type {type(klass)} is not a subtype of {CongruenceClass}")
+    return klass.Set(m)
 
-def Zm_star(m):
+def Zm_star(m, klass=CongruenceClass):
     return set(
         r
-        for r in Zm(m)
+        for r in Zm(m, klass)
         if r.is_relatively_prime_to_modulus
     )
 
-def EulerTotent(m):
-    return len(Zm_star(m))
+def EulerTotent(m, klass=CongruenceClass):
+    return len(Zm_star(m, klass))
