@@ -57,25 +57,20 @@ class CongruenceClass(congruence.Congruence):
         ~m|n, x̄∈Zm, | x̄ (mod n) | = n / (m, n)
         Note that for relatively prime: (m, n) = 1 => n / (m, n) = n
         """
-        if self.modulus % modulo == 0:
-            if self.modulus > modulo:
-                return {
-                    self.__class__(c, modulo)
-                    for c
-                    in range(self.remainder, self.value(1), self.modulus)
-                }
-            else:
-                return {
-                    self.__class__(c, modulo)
-                    for c
-                    in range(self.remainder, self.value(self.modulus), self.modulus)
-                }
-        else:
+        def iterate_and_convert(size):
             return {
                 self.__class__(c, modulo)
                 for c
-                in range(self.remainder, self.value(modulo // math.gcd(self.modulus, modulo)), self.modulus)
+                in range(self.remainder, self.value(size), self.modulus)
             }
+
+        if self.modulus % modulo == 0:
+            if self.modulus > modulo:
+                return iterate_and_convert(1)
+            else:
+                return iterate_and_convert(self.modulus)
+        else:
+            return iterate_and_convert(modulo // math.gcd(self.modulus, modulo))
 
 def Zm(m, klass=CongruenceClass):
     if not issubclass(klass, CongruenceClass):
