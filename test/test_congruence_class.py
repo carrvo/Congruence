@@ -81,3 +81,18 @@ class CongruenceClassTests(unittest.TestCase):
         b = CongruenceClass(31, 7)
         self.assertTrue(b.is_relatively_prime_to_modulus)
         self.assertTrue((a*b).is_relatively_prime_to_modulus)
+
+    def test_modulo_conversion(self):
+        """
+        My personal theory.
+        """
+        five = CongruenceClass(0, 5)
+        ten = CongruenceClass(0, 10)
+        twentyfive = CongruenceClass(0, 25)
+        twentysix = CongruenceClass(0, 26)
+        self.assertEqual({c.remainder for c in five.convert(modulo=twentyfive.modulus)}, {0, 5, 10, 15, 20})
+        self.assertEqual({c.remainder for c in twentyfive.convert(modulo=five.modulus)}, {0})
+        self.assertEqual({c.remainder for c in five.convert(modulo=twentysix.modulus)}, {0, 5, 10, 15, 20, 25, 4, 9, 14, 19, 24, 3, 8, 13, 18, 23, 2, 7, 12, 17, 22, 1, 6, 11, 16, 21})
+        self.assertEqual({c.remainder for c in ten.convert(modulo=twentysix.modulus)}, {0, 10, 20, 4, 14, 24, 8, 18, 2, 12, 22, 6, 16})
+        self.assertEqual({c.remainder for c in twentysix.convert(modulo=five.modulus)}, {0, 1, 2, 3, 4})
+        self.assertEqual({c.remainder for c in twentysix.convert(modulo=ten.modulus)}, {6, 2, 8, 4, 0})

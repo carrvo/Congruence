@@ -2,6 +2,7 @@
 """
 
 import sys
+import math
 
 import congruence
 
@@ -41,6 +42,40 @@ class CongruenceClass(congruence.Congruence):
             raise ValueError(f"{other} from {type(other)} is not of "
                              f"int for which to compare (mod {self.modulus})")
         return other % self.modulus == self.remainder
+
+    def convert(self, modulo):
+        """
+        First, a note about notation:
+        x̄∈Zm =>  x̄ = { x*0+r, x*1+r, x*2+r, ..., x*(m-1)+r }
+        x̄ (mod n) <=> { x*0+r (mod n), x*1+r (mod n), x*2+r (mod n), ..., x*(m-1)+r (mod n) }
+        That is, just as x̄ is a set with multiple values, so is x̄ (mod n) a set with multiple values.
+        And "~" is the negation.
+
+        Thus:
+        m<n, m|n, x̄∈Zm, | x̄ (mod n) | = m
+        m>n, m|n, x̄∈Zm, | x̄ (mod n) | = 1
+        ~m|n, x̄∈Zm, | x̄ (mod n) | = n / (m, n)
+        Note that for relatively prime: (m, n) = 1 => n / (m, n) = n
+        """
+        if self.modulus % modulo == 0:
+            if self.modulus > modulo:
+                return {
+                    self.__class__(c, modulo)
+                    for c
+                    in range(self.remainder, self.value(1), self.modulus)
+                }
+            else:
+                return {
+                    self.__class__(c, modulo)
+                    for c
+                    in range(self.remainder, self.value(self.modulus), self.modulus)
+                }
+        else:
+            return {
+                self.__class__(c, modulo)
+                for c
+                in range(self.remainder, self.value(modulo // math.gcd(self.modulus, modulo)), self.modulus)
+            }
 
 def Zm(m, klass=CongruenceClass):
     if not issubclass(klass, CongruenceClass):
