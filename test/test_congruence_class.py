@@ -1,5 +1,6 @@
 import unittest
 import sys
+import math
 
 import congruence
 from congruence import CongruenceClass,Zm_star,EulerTotent
@@ -96,3 +97,21 @@ class CongruenceClassTests(unittest.TestCase):
         self.assertEqual({c.remainder for c in ten.convert(modulo=twentysix.modulus)}, {0, 10, 20, 4, 14, 24, 8, 18, 2, 12, 22, 6, 16})
         self.assertEqual({c.remainder for c in twentysix.convert(modulo=five.modulus)}, {0, 1, 2, 3, 4})
         self.assertEqual({c.remainder for c in twentysix.convert(modulo=ten.modulus)}, {6, 2, 8, 4, 0})
+
+    def test_Chinese_Remainder_Theorem(self):
+        """
+        Usage of CongruenceClass.convert as an alternative to ChineseRemainderTheorem.
+        """
+        a1 = CongruenceClass(2, 7)
+        a2 = CongruenceClass(4, 11)
+        a3 = CongruenceClass(5, 13)
+        def lcm(a, b):
+            """
+            kudos: https://stackoverflow.com/a/51716959/7163041
+            """
+            return abs(a*b) // math.gcd(a, b)
+        M = lcm(lcm(a1.modulus, a2.modulus), a3.modulus)
+        a1M = a1.convert(M)
+        a2M = a2.convert(M)
+        a3M = a3.convert(M)
+        self.assertEqual(a1M.intersection(a2M, a3M), {congruence.ChineseRemainderTheorem(a1, a2, a3, klass=CongruenceClass)})
