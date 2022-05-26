@@ -5,7 +5,7 @@ from congruence.congruence_class import CongruenceClass, Zm, Zm_star, EulerToten
 __all__ = [
     'is_relatively_prime',
     'Congruence',
-    'ChineseRemainderTheorem'
+    'ChineseRemainderTheorem',
     'CongruenceClass',
     'EulerTotent'
 ]
