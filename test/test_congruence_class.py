@@ -92,6 +92,7 @@ class CongruenceClassTests(unittest.TestCase):
         twentyfive = CongruenceClass(0, 25)
         twentysix = CongruenceClass(0, 26)
         self.assertEqual({c.remainder for c in five.convert(modulo=twentyfive.modulus)}, {0, 5, 10, 15, 20})
+        self.assertEqual({c.remainder for c in five.convert(modulo=ten.modulus)}, {0, 5})
         self.assertEqual({c.remainder for c in twentyfive.convert(modulo=five.modulus)}, {0})
         self.assertEqual({c.remainder for c in five.convert(modulo=twentysix.modulus)}, {0, 5, 10, 15, 20, 25, 4, 9, 14, 19, 24, 3, 8, 13, 18, 23, 2, 7, 12, 17, 22, 1, 6, 11, 16, 21})
         self.assertEqual({c.remainder for c in ten.convert(modulo=twentysix.modulus)}, {0, 10, 20, 4, 14, 24, 8, 18, 2, 12, 22, 6, 16})

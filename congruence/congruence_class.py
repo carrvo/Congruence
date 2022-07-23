@@ -52,10 +52,10 @@ class CongruenceClass(congruence.Congruence):
         And "~" is the negation.
 
         Thus:
-        m<n, m|n, x̄∈Zm, | x̄ (mod n) | = m
         m>n, m|n, x̄∈Zm, | x̄ (mod n) | = 1
-        ~m|n, x̄∈Zm, | x̄ (mod n) | = n / (m, n)
+        ((m<n ^ m|n) v ~m|n), x̄∈Zm, | x̄ (mod n) | = n / (m, n)
         Note that for relatively prime: (m, n) = 1 => n / (m, n) = n
+        Note that m|n => n / (m, n) = n / m
         """
         def iterate_and_convert(size):
             return {
@@ -64,11 +64,8 @@ class CongruenceClass(congruence.Congruence):
                 in range(self.remainder, self.value(size), self.modulus)
             }
 
-        if self.modulus % modulo == 0:
-            if self.modulus > modulo:
-                return iterate_and_convert(1)
-            else:
-                return iterate_and_convert(self.modulus)
+        if self.modulus % modulo == 0 and self.modulus > modulo:
+            return iterate_and_convert(1)
         else:
             return iterate_and_convert(modulo // math.gcd(self.modulus, modulo))
 
